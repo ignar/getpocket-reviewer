@@ -1,4 +1,6 @@
-require "getpocket/reviewer/version"
+# frozen_string_literal: true
+
+require 'getpocket/reviewer/version'
 require 'faraday'
 require 'json'
 
