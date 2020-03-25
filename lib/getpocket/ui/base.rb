@@ -14,11 +14,11 @@ module Getpocket
         raise NotImplementedError
       end
 
-      private
-
-      def self.cursor
+      def cursor
         TTY::Cursor
       end
+
+      private
 
       def screen_width
         TTY::Screen.width

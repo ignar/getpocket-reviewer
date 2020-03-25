@@ -5,8 +5,22 @@ require 'getpocket/ui/base'
 module Getpocket
   module UI
     class List < Base
-      def self.render
-        new.view.each do |position, line|
+      attr_reader :collection, :cursor_position
+
+      def self.[](args)
+        new(
+          cursor_position: args.fetch(:cursor_position),
+          collection: args.fetch(:collection)
+        )
+      end
+
+      def initialize(collection:, cursor_position:)
+        @collection = collection
+        @cursor_position = cursor_position
+      end
+
+      def render
+        view.each do |position, line|
           row, column = position
           print cursor.move_to(row, column)
           print line
@@ -14,10 +28,13 @@ module Getpocket
       end
 
       def view
-        {
-          [2, 3] => "line 1",
-          [2, 4] => "line 2"
-        }
+        row = 2
+        collection_with_position = collection.map.with_index do |line, index|
+          row += 1
+          item = index == cursor_position ? "> #{line}" : "  #{line}"
+          [[2, row], item]
+        end
+        collection_with_position.to_h
       end
     end
   end

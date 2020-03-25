@@ -9,6 +9,8 @@ require 'getpocket/ui/menu'
 require 'getpocket/ui/list'
 require 'getpocket/operations/display'
 
+require 'getpocket/screens/welcome_screen'
+
 module Getpocket
   module Reviewer
     class Application
@@ -18,11 +20,7 @@ module Getpocket
         print cursor.hide
         print cursor.clear_screen
 
-        Getpocket::Operations::Display.render([
-          Getpocket::UI::MainFrame,
-          Getpocket::UI::Menu,
-          Getpocket::UI::List,
-        ])
+        @state = Getpocket::Screens::WelcomeScreen.new.process
 
         reader.on(:keyctrl_x, :keyescape) do
           print cursor.clear_screen
@@ -30,8 +28,12 @@ module Getpocket
           exit
         end
 
+        reader.on(:keypress) do |event|
+          @state = @state.process(event)
+        end
+
         loop do
-          p reader.read_keypress(echo: false)
+          reader.read_keypress(echo: false)
         end
       end
     end
