@@ -35,4 +35,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rubocop', '0.80.1'
   spec.add_dependency 'faraday', '~> 1.0'
+  spec.add_dependency 'tty-box', '~> 0.5'
+  spec.add_dependency 'tty-prompt', '~> 0.21'
+  spec.add_dependency 'tty-screen', '~> 0.7'
+  spec.add_dependency 'tty-reader', '~> 0.7'
+  spec.add_dependency 'dry-system', '~> 0.17'
 end
