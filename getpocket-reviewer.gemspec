@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'getpocket-reviewer'
   spec.version       = Getpocket::Reviewer::VERSION
   spec.authors       = ['Artem Melnykov']
-  spec.email         = ['artem.melnykov@shopify.com']
+  spec.email         = ['melnykov.artem.v@gmail.com']
 
   spec.summary       = 'Write a short summary, because RubyGems requires one.'
   spec.description   = 'Write a longer description or delete this line.'
