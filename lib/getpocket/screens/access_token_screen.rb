@@ -17,9 +17,9 @@ module Getpocket
         char = reader.read_keypress(nonblock: false)
         return self unless char == "\r"
 
-        Operations::Authorize.authorize(request_token)
+        access_token = Operations::Authorize.authorize(request_token)
         display
-        ListScreen.new(cursor_position: 0)
+        ListScreen.new(access_token: access_token, cursor_position: 0)
       end
 
       private

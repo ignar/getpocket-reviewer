@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
+require 'getpocket/operations/articles_fetcher'
+
 module Getpocket
   module Screens
     class ListScreen
-      attr_reader :cursor_position
+      attr_reader :cursor_position, :access_token
 
-      def initialize(cursor_position:)
+      def initialize(access_token:, cursor_position:)
+        @access_token = access_token
         @cursor_position = cursor_position
       end
 
@@ -16,11 +19,11 @@ module Getpocket
         key_symbol = reader.console.keys[char]
 
         if key_symbol == :up
-          return ListScreen.new(cursor_position: cursor_position - 1).display
+          return ListScreen.new(access_token: access_token, cursor_position: cursor_position - 1).display
         end
 
         if key_symbol == :down
-          ListScreen.new(cursor_position: cursor_position + 1).display
+          ListScreen.new(access_token: access_token, cursor_position: cursor_position + 1).display
         end
       end
 
@@ -30,11 +33,17 @@ module Getpocket
           Getpocket::UI::Menu,
           Getpocket::UI::List[
             cursor_position: cursor_position,
-            collection: ['line 1', 'line 2', 'line 3']
+            collection: collection
           ]
         ])
 
-        ListScreen.new(cursor_position: cursor_position)
+        ListScreen.new(access_token: access_token, cursor_position: cursor_position)
+      end
+
+      private
+
+      def collection
+        Operations::ArticlesFetcher.new(access_token, 1)
       end
     end
   end

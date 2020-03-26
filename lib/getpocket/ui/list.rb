@@ -31,7 +31,7 @@ module Getpocket
         row = 2
         collection_with_position = collection.map.with_index do |line, index|
           row += 1
-          item = index == cursor_position ? "> #{line}" : "  #{line}"
+          item = index == cursor_position ? "> #{line['given_title']}" : "  #{line['given_title']}"
           [[2, row], item]
         end
         collection_with_position.to_h
