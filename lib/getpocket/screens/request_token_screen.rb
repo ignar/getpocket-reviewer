@@ -11,6 +11,7 @@ module Getpocket
       def process(_ = nil)
         request_token = Operations::Authenticate.authenticate
         display
+        p request_token
         AuthenticationScreen.new(request_token)
       end
 

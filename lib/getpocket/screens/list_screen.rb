@@ -9,19 +9,22 @@ module Getpocket
         @cursor_position = cursor_position
       end
 
-      def process(event)
-        if event.key.name == :up
-          return ListScreen.new(cursor_position: cursor_position - 1).display_list
+      def process(reader)
+        display
+
+        char = reader.read_keypress
+        key_symbol = reader.console.keys[char]
+
+        if key_symbol == :up
+          return ListScreen.new(cursor_position: cursor_position - 1).display
         end
 
-        if event.key.name == :down
-          return ListScreen.new(cursor_position: cursor_position + 1).display_list
+        if key_symbol == :down
+          ListScreen.new(cursor_position: cursor_position + 1).display
         end
-
-        display_list
       end
 
-      def display_list
+      def display
         Getpocket::Operations::Display.render([
           Getpocket::UI::MainFrame,
           Getpocket::UI::Menu,

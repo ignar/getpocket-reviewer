@@ -20,20 +20,16 @@ module Getpocket
         print cursor.hide
         print cursor.clear_screen
 
-        @state = Getpocket::Screens::WelcomeScreen.new.process
-
         reader.on(:keyctrl_x, :keyescape) do
           print cursor.clear_screen
           print cursor.show
           exit
         end
 
-        reader.on(:keypress) do |event|
-          @state = @state.process(event)
-        end
+        @state = Getpocket::Screens::WelcomeScreen.new.process
 
         loop do
-          reader.read_keypress(echo: false)
+          @state = @state.process(reader)
         end
       end
     end

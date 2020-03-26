@@ -13,7 +13,10 @@ module Getpocket
         @request_token = request_token
       end
 
-      def process(_ = nil)
+      def process(reader)
+        char = reader.read_keypress(nonblock: false)
+        return self unless char == "\r"
+
         Operations::Authorize.authorize(request_token)
         display
         ListScreen.new(cursor_position: 0)
