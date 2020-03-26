@@ -19,7 +19,7 @@ module Getpocket
 
         access_token = Operations::Authorize.authorize(request_token)
         display
-        ListScreen.new(access_token: access_token, cursor_position: 0)
+        ListScreen.new(access_token: access_token, cursor_position: 0, page: 0)
       end
 
       private

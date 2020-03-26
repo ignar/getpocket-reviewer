@@ -4,25 +4,28 @@ module Getpocket
   module Operations
     class ArticlesFetcher
       include Enumerable
+      include Singleton
 
-      attr_reader :config, :offset
+      attr_reader :config, :offset, :old_offset, :collection
 
       PER_PAGE = 10
 
-      def initialize(config, page)
+      def prepare(config, page)
         @config = config
-        @offset = (page - 1) * PER_PAGE
-        @collection = []
+        @offset = page * PER_PAGE
       end
 
       def each(&block)
-        page = fetch_page
-        page.each { |el| block.call(el) }
+        fetch_page
+        @collection.each { |el| block.call(el) }
       end
 
       private
 
       def fetch_page
+        return if offset == old_offset
+
+        @old_offset = offset
         result = Faraday.post('https://getpocket.com/v3/get',
           {
             consumer_key: config.consumer_key,
@@ -35,9 +38,10 @@ module Getpocket
           {
             'Content-Type' => 'application/json; charset=UTF8',
             'X-Accept' => 'application/json'
-          })
+          }
+        )
         json = JSON.parse(result.body)
-        json['list'].values
+        @collection = json['list'].values
       end
     end
   end

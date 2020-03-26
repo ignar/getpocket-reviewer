@@ -5,11 +5,12 @@ require 'getpocket/operations/articles_fetcher'
 module Getpocket
   module Screens
     class ListScreen
-      attr_reader :cursor_position, :access_token
+      attr_reader :cursor_position, :access_token, :page
 
-      def initialize(access_token:, cursor_position:)
+      def initialize(access_token:, cursor_position:, page:)
         @access_token = access_token
         @cursor_position = cursor_position
+        @page = page
       end
 
       def process(reader)
@@ -18,12 +19,20 @@ module Getpocket
         char = reader.read_keypress
         key_symbol = reader.console.keys[char]
 
+        if key_symbol == :right
+          return ListScreen.new(access_token: access_token, cursor_position: 0, page: page + 1).display
+        end
+
+        if key_symbol == :left
+          return ListScreen.new(access_token: access_token, cursor_position: 0, page: page - 1).display
+        end
+
         if key_symbol == :up
-          return ListScreen.new(access_token: access_token, cursor_position: cursor_position - 1).display
+          return ListScreen.new(access_token: access_token, cursor_position: cursor_position - 1, page: page).display
         end
 
         if key_symbol == :down
-          ListScreen.new(access_token: access_token, cursor_position: cursor_position + 1).display
+          ListScreen.new(access_token: access_token, cursor_position: cursor_position + 1, page: page).display
         end
       end
 
@@ -37,13 +46,15 @@ module Getpocket
           ]
         ])
 
-        ListScreen.new(access_token: access_token, cursor_position: cursor_position)
+        ListScreen.new(access_token: access_token, cursor_position: cursor_position, page: page)
       end
 
       private
 
       def collection
-        Operations::ArticlesFetcher.new(access_token, 1)
+        Operations::ArticlesFetcher.instance.tap do |instance|
+          instance.prepare(access_token, page)
+        end
       end
     end
   end
