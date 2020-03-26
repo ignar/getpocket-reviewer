@@ -3,8 +3,7 @@
 module Getpocket
   module Screens
     class LoadingScreen
-      def process
-      end
+      def process; end
     end
   end
 end

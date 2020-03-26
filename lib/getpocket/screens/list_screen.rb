@@ -38,13 +38,13 @@ module Getpocket
 
       def display
         Getpocket::Operations::Display.render([
-          Getpocket::UI::MainFrame,
-          Getpocket::UI::Menu,
-          Getpocket::UI::List[
-            cursor_position: cursor_position,
-            collection: collection
-          ]
-        ])
+                                                Getpocket::UI::MainFrame,
+                                                Getpocket::UI::Menu,
+                                                Getpocket::UI::List[
+                                                  cursor_position: cursor_position,
+                                                  collection: collection
+                                                ]
+                                              ])
 
         ListScreen.new(access_token: access_token, cursor_position: cursor_position, page: page)
       end

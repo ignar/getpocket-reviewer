@@ -27,19 +27,18 @@ module Getpocket
 
         @old_offset = offset
         result = Faraday.post('https://getpocket.com/v3/get',
-          {
-            consumer_key: config.consumer_key,
-            access_token: config.access_token,
-            count: PER_PAGE,
-            detailType: 'simple',
-            sort: 'oldest',
-            offset: offset
-          }.to_json,
-          {
-            'Content-Type' => 'application/json; charset=UTF8',
-            'X-Accept' => 'application/json'
-          }
-        )
+                              {
+                                consumer_key: config.consumer_key,
+                                access_token: config.access_token,
+                                count: PER_PAGE,
+                                detailType: 'simple',
+                                sort: 'oldest',
+                                offset: offset
+                              }.to_json,
+                              {
+                                'Content-Type' => 'application/json; charset=UTF8',
+                                'X-Accept' => 'application/json'
+                              })
         json = JSON.parse(result.body)
         @collection = json['list'].values
       end

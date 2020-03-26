@@ -9,11 +9,11 @@ module Getpocket
 
       def self.authorize(config)
         result = Faraday.post('https://getpocket.com/v3/oauth/authorize',
-          "{\"consumer_key\": \"#{config.consumer_key}\", \"code\": \"#{config.request_token}\"}",
-          {
-            'Content-Type' => 'application/json; charset=UTF8',
-            'X-Accept' => 'application/json'
-          })
+                              "{\"consumer_key\": \"#{config.consumer_key}\", \"code\": \"#{config.request_token}\"}",
+                              {
+                                'Content-Type' => 'application/json; charset=UTF8',
+                                'X-Accept' => 'application/json'
+                              })
         answer = JSON.parse(result.body)
         username = answer['username']
         access_token = answer['access_token']
