@@ -10,8 +10,6 @@ module Getpocket
       end
 
       def process(event)
-        # return unless event.key.name == :return # must be another state/screen
-        p event.key.name
         if event.key.name == :up
           return ListScreen.new(cursor_position: cursor_position - 1).display_list
         end

@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 
-require 'getpocket/screens/request_token_screen'
+require 'getpocket/screens/authentication_screen'
 require 'getpocket/ui/main_frame'
-require 'getpocket/ui/welcome'
+require 'getpocket/ui/request_token'
+require 'getpocket/operations/authenticate'
 
 module Getpocket
   module Screens
-    class WelcomeScreen
+    class RequestTokenScreen
       def process(_ = nil)
+        request_token = Operations::Authenticate.authenticate
         display
-        RequestTokenScreen.new
+        AuthenticationScreen.new(request_token)
       end
 
       private
@@ -17,7 +19,7 @@ module Getpocket
       def display
         Getpocket::Operations::Display.render([
           Getpocket::UI::MainFrame,
-          Getpocket::UI::Welcome
+          Getpocket::UI::RequestToken
         ])
       end
     end

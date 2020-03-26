@@ -4,7 +4,7 @@ require 'getpocket/ui/base'
 
 module Getpocket
   module UI
-    class Authorize < Base
+    class RequestToken < Base
       def self.render
         new.tap do |instance|
           instance.view.each do |position, line|
@@ -17,9 +17,9 @@ module Getpocket
 
       def view
         {
-          [2, 3] => "Welcome",
-          [2, 4] => "Open the next link in the browser and than press enter",
-          [2, 5] => "http://google.com"
+          [2, 3] => 'Welcome',
+          [2, 4] => 'To the GetPocket CLI client',
+          [2, 5] => 'Authenticating application'
         }
       end
     end
