@@ -20,19 +20,19 @@ module Getpocket
         key_symbol = reader.console.keys[char]
 
         if key_symbol == :right
-          return ListScreen.new(access_token: access_token, cursor_position: 0, page: page + 1).display
+          return ListScreen.new(access_token: access_token, cursor_position: 0, page: page + 1)
         end
 
         if key_symbol == :left
-          return ListScreen.new(access_token: access_token, cursor_position: 0, page: page - 1).display
+          return ListScreen.new(access_token: access_token, cursor_position: 0, page: page - 1)
         end
 
         if key_symbol == :up
-          return ListScreen.new(access_token: access_token, cursor_position: cursor_position - 1, page: page).display
+          return ListScreen.new(access_token: access_token, cursor_position: cursor_position - 1, page: page)
         end
 
         if key_symbol == :down
-          ListScreen.new(access_token: access_token, cursor_position: cursor_position + 1, page: page).display
+          ListScreen.new(access_token: access_token, cursor_position: cursor_position + 1, page: page)
         end
       end
 
