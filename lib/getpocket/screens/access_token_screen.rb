@@ -14,8 +14,10 @@ module Getpocket
       end
 
       def process(reader)
-        char = reader.read_keypress(nonblock: false)
-        return self unless char == "\r"
+        char = reader.read_keypress
+        key_symbol = reader.console.keys[char]
+
+        return self unless key_symbol == :return
 
         access_token = Operations::Authorize.authorize(request_token)
         display
