@@ -33,11 +33,11 @@ module Getpocket
                                 count: PER_PAGE,
                                 detailType: 'simple',
                                 sort: 'oldest',
-                                offset: offset
+                                offset: offset,
                               }.to_json,
                               {
                                 'Content-Type' => 'application/json; charset=UTF8',
-                                'X-Accept' => 'application/json'
+                                'X-Accept' => 'application/json',
                               })
         json = JSON.parse(result.body)
         @collection = json['list'].values

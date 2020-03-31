@@ -17,8 +17,8 @@ module Getpocket
       def self.run
         reader = TTY::Reader.new
         cursor = TTY::Cursor
-        print cursor.hide
-        print cursor.clear_screen
+        print(cursor.hide)
+        print(cursor.clear_screen)
 
         reader.on(:keyctrl_x, :keyescape) do
           print cursor.clear_screen

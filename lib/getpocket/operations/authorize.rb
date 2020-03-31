@@ -12,7 +12,7 @@ module Getpocket
                               "{\"consumer_key\": \"#{config.consumer_key}\", \"code\": \"#{config.request_token}\"}",
                               {
                                 'Content-Type' => 'application/json; charset=UTF8',
-                                'X-Accept' => 'application/json'
+                                'X-Accept' => 'application/json',
                               })
         answer = JSON.parse(result.body)
         username = answer['username']

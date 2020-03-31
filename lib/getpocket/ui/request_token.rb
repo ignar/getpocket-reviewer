@@ -19,7 +19,7 @@ module Getpocket
         {
           [2, 3] => 'Welcome',
           [2, 4] => 'To the GetPocket CLI client',
-          [2, 5] => 'Authenticating application'
+          [2, 5] => 'Authenticating application',
         }
       end
     end

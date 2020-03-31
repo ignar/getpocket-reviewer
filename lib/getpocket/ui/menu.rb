@@ -9,7 +9,7 @@ module Getpocket
         box = TTY::Box.frame(top: screen_height - 4, left: 2, width: screen_width - 4) do
           'menu'
         end
-        print box
+        print(box)
       end
     end
   end

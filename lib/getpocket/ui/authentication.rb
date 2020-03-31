@@ -29,7 +29,7 @@ module Getpocket
           [2, 4] => 'To the GetPocket CLI client',
           [2, 5] => 'Authenticating application',
           [2, 6] => 'Open URL and press enter once succeed:',
-          [2, 7] => "https://getpocket.com/auth/authorize?request_token=#{request_token.request_token}&redirect_uri=#{request_token.redirect_url}"
+          [2, 7] => "https://getpocket.com/auth/authorize?request_token=#{request_token.request_token}&redirect_uri=#{request_token.redirect_url}",
         }
       end
     end

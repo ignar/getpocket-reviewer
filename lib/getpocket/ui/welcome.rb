@@ -18,7 +18,7 @@ module Getpocket
       def view
         {
           [2, 3] => 'Welcome',
-          [2, 4] => 'To the GetPocket CLI client'
+          [2, 4] => 'To the GetPocket CLI client',
         }
       end
     end

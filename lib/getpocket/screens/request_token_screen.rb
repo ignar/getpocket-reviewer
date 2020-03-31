@@ -18,9 +18,9 @@ module Getpocket
 
       def display
         Getpocket::Operations::Display.render([
-                                                Getpocket::UI::MainFrame,
-                                                Getpocket::UI::RequestToken
-                                              ])
+          Getpocket::UI::MainFrame,
+          Getpocket::UI::RequestToken,
+        ])
       end
     end
   end

@@ -15,7 +15,7 @@ module Getpocket
                               "{\"consumer_key\": \"#{config.consumer_key}\", \"redirect_uri\": \"#{config.redirect_url}\"}",
                               {
                                 'Content-Type' => 'application/json; charset=UTF8',
-                                'X-Accept' => 'application/json'
+                                'X-Accept' => 'application/json',
                               })
         code = JSON.parse(result.body)['code']
 
