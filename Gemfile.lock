@@ -2,7 +2,10 @@ PATH
   remote: .
   specs:
     getpocket-reviewer (0.1.0)
+      dry-struct (~> 1.3)
       dry-system (~> 0.17)
+      dry-transaction (~> 0.13)
+      dry-types (~> 1.4)
       faraday (~> 1.0)
       tty-box (~> 0.5)
       tty-prompt (~> 0.21)
@@ -12,8 +15,12 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.0)
     concurrent-ruby (1.1.6)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     diff-lcs (1.3)
     dry-auto_inject (0.7.0)
       dry-container (>= 0.3.4)
@@ -27,11 +34,21 @@ GEM
     dry-core (0.4.9)
       concurrent-ruby (~> 1.0)
     dry-equalizer (0.3.0)
+    dry-events (0.2.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 0.4)
+      dry-equalizer (~> 0.2)
     dry-inflector (0.2.0)
     dry-logic (1.0.6)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.2)
       dry-equalizer (~> 0.2)
+    dry-matcher (0.8.3)
+      dry-core (>= 0.4.8)
+    dry-monads (1.3.5)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 0.4, >= 0.4.4)
+      dry-equalizer
     dry-struct (1.3.0)
       dry-core (~> 0.4, >= 0.4.4)
       dry-equalizer (~> 0.3)
@@ -46,6 +63,11 @@ GEM
       dry-equalizer (~> 0.2)
       dry-inflector (~> 0.1, >= 0.1.2)
       dry-struct (~> 1.0)
+    dry-transaction (0.13.0)
+      dry-container (>= 0.2.8)
+      dry-events (>= 0.1.0)
+      dry-matcher (>= 0.7.0)
+      dry-monads (>= 0.4.0)
     dry-types (1.4.0)
       concurrent-ruby (~> 1.0)
       dry-container (~> 0.3)
@@ -54,8 +76,9 @@ GEM
       dry-inflector (~> 0.1, >= 0.1.2)
       dry-logic (~> 1.0, >= 1.0.2)
     equatable (0.6.1)
-    faraday (1.0.0)
+    faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
+    hashdiff (1.0.1)
     ice_nine (0.11.2)
     jaro_winkler (1.5.4)
     multipart-post (2.1.1)
@@ -66,6 +89,7 @@ GEM
     pastel (0.7.3)
       equatable (~> 0.6)
       tty-color (~> 0.5)
+    public_suffix (4.0.3)
     rainbow (3.0.0)
     rake (10.5.0)
     rexml (3.2.4)
@@ -93,6 +117,7 @@ GEM
     rubocop-shopify (1.0.0)
       rubocop (>= 0.78.0)
     ruby-progressbar (1.10.1)
+    safe_yaml (1.0.5)
     strings (0.1.8)
       strings-ansi (~> 0.1)
       unicode-display_width (~> 1.5)
@@ -115,6 +140,10 @@ GEM
     tty-screen (0.7.1)
     unicode-display_width (1.6.1)
     unicode_utils (1.4.0)
+    webmock (3.8.3)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     wisper (2.0.1)
 
 PLATFORMS
@@ -125,8 +154,9 @@ DEPENDENCIES
   getpocket-reviewer!
   rake (~> 10.0)
   rspec (~> 3.0)
-  rubocop (= 0.80.1)
-  rubocop-shopify (= 1.0.0)
+  rubocop (~> 0.80)
+  rubocop-shopify (~> 1.0)
+  webmock (~> 3.8.3)
 
 BUNDLED WITH
    2.1.4
