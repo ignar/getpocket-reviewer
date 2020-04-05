@@ -15,8 +15,7 @@ module Getpocket
           main_frame,
           request_token,
         ])
-        authentication_screen.request_token = result
-        authentication_screen
+        authentication_screen[request_token: result]
       end
     end
   end

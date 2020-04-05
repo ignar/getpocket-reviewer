@@ -9,18 +9,17 @@ module Getpocket
 
       attr_accessor :request_token
 
-      def process(_ = nil)
-        display
-        AccessTokenScreen.new(request_token)
+      def [](request_token:)
+        @request_token = request_token
+        self
       end
 
-      private
-
-      def display
-        renderer.call([
+      def process(_ = nil)
+        display.call([
           main_frame,
           authentication[request_token: request_token],
         ])
+        AccessTokenScreen.new(request_token)
       end
     end
   end
