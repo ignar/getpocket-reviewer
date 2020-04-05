@@ -3,7 +3,7 @@
 require 'getpocket/ui/base'
 
 module Getpocket
-  module UI
+  module Ui
     class Menu < Base
       def view
         box = TTY::Box.frame(top: screen_height - 4, left: 2, width: screen_width - 4) do

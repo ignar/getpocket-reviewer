@@ -9,7 +9,7 @@ module Getpocket
   module Screens
     class RequestTokenScreen
       def process(_ = nil)
-        request_token = Operations::Authenticate.authenticate
+        request_token = Operations::Authenticate.new.call
         display
         AuthenticationScreen.new(request_token)
       end

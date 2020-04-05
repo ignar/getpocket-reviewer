@@ -3,7 +3,7 @@
 require 'getpocket/ui/base'
 
 module Getpocket
-  module UI
+  module Ui
     class RequestToken < Base
       def self.render
         new.tap do |instance|

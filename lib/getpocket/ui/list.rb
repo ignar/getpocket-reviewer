@@ -3,7 +3,7 @@
 require 'getpocket/ui/base'
 
 module Getpocket
-  module UI
+  module Ui
     class List < Base
       attr_reader :collection, :cursor_position
 

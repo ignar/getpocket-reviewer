@@ -4,7 +4,7 @@ require 'tty-prompt'
 require 'stringio'
 
 module Getpocket
-  module UI
+  module Ui
     class Base
       def self.render
         new.view

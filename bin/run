@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
+
 require 'getpocket/reviewer'
 
-Getpocket::Reviewer::Application.run
+Getpocket::Reviewer::Application.start(:screen)
+Getpocket::Reviewer::Application.finalize!

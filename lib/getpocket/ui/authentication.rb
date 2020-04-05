@@ -3,7 +3,7 @@
 require 'getpocket/ui/base'
 
 module Getpocket
-  module UI
+  module Ui
     class Authentication < Base
       attr_reader :request_token
 

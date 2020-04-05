@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
-require 'getpocket/screens/request_token_screen'
-require 'getpocket/ui/main_frame'
-require 'getpocket/ui/welcome'
+require 'getpocket/reviewer/import'
 
 module Getpocket
   module Screens
     class WelcomeScreen
+      include Import['operations.renderer']
+      include Import['getpocket.ui.welcome']
+      include Import['getpocket.ui.main_frame']
+
       def process(_ = nil)
         display
         RequestTokenScreen.new
@@ -15,9 +17,9 @@ module Getpocket
       private
 
       def display
-        Getpocket::Operations::Display.render([
-          Getpocket::UI::MainFrame,
-          Getpocket::UI::Welcome,
+        renderer.call([
+          main_frame,
+          welcome,
         ])
       end
     end

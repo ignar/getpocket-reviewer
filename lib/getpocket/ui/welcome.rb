@@ -3,19 +3,17 @@
 require 'getpocket/ui/base'
 
 module Getpocket
-  module UI
+  module Ui
     class Welcome < Base
-      def self.render
-        new.tap do |instance|
-          instance.view.each do |position, line|
-            row, column = position
-            print instance.cursor.move_to(row, column)
-            print line
-          end
+      def render
+        views.each do |position, line|
+          row, column = position
+          print cursor.move_to(row, column)
+          print line
         end
       end
 
-      def view
+      def views
         {
           [2, 3] => 'Welcome',
           [2, 4] => 'To the GetPocket CLI client',
