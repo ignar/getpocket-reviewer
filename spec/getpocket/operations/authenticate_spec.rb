@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 RSpec.describe(Getpocket::Operations::Authenticate) do
-  describe '.authenticate' do
+  describe '#call' do
     subject(:result) { described_class.new.call(config) }
 
     let(:config) { double(consumer_key: 'uyytr', redirect_url: 'ruby-cli:authorizationFinished') }

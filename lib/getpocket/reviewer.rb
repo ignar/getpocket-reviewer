@@ -11,6 +11,7 @@ require "dry/transaction/operation"
 require 'getpocket/reviewer/application'
 require 'getpocket/types'
 require 'getpocket/request_token'
+require 'getpocket/access_token'
 
 module Getpocket
   module Reviewer

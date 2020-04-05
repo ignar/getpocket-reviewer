@@ -5,9 +5,9 @@ require 'faraday'
 module Getpocket
   module Operations
     class Authorize
-      AccessToken = Struct.new(:consumer_key, :request_token, :redirect_url, :username, :access_token)
+      include Dry::Transaction::Operation
 
-      def self.authorize(config)
+      def call(config)
         result = Faraday.post('https://getpocket.com/v3/oauth/authorize',
                               "{\"consumer_key\": \"#{config.consumer_key}\", \"code\": \"#{config.request_token}\"}",
                               {
@@ -18,7 +18,13 @@ module Getpocket
         username = answer['username']
         access_token = answer['access_token']
 
-        AccessToken.new(config.consumer_key, config.request_token, config.redirect_url, username, access_token)
+        Getpocket::Reviewer::AccessToken.new(
+          consumer_key: config.consumer_key,
+          request_token: config.request_token,
+          redirect_url: config.redirect_url,
+          username: username,
+          access_token: access_token
+        )
       end
     end
   end
