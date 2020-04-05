@@ -5,7 +5,9 @@ require 'tty-cursor'
 module Getpocket
   module Operations
     class Display
-      def self.render(views)
+      include Dry::Transaction::Operation
+
+      def call(views)
         views.map(&:render).join
       end
     end
