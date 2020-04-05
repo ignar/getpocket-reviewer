@@ -7,10 +7,11 @@ module Getpocket
     class ListScreen
       attr_reader :cursor_position, :access_token, :page
 
-      def initialize(access_token:, cursor_position:, page:)
+      def [](access_token:, cursor_position:, page:)
         @access_token = access_token
         @cursor_position = cursor_position
         @page = page
+        self
       end
 
       def process(reader)

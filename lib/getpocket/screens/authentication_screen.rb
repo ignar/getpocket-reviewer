@@ -4,6 +4,7 @@ module Getpocket
   module Screens
     class AuthenticationScreen
       include Import['getpocket.operations.display']
+      include Import['getpocket.screens.access_token_screen']
       include Import['getpocket.ui.authentication']
       include Import['getpocket.ui.main_frame']
 
@@ -19,7 +20,7 @@ module Getpocket
           main_frame,
           authentication[request_token: request_token],
         ])
-        AccessTokenScreen.new(request_token)
+        access_token_screen[request_token: request_token]
       end
     end
   end

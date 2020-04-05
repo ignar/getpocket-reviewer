@@ -7,10 +7,17 @@ require 'getpocket/operations/authorize'
 module Getpocket
   module Screens
     class AccessTokenScreen
+      include Import['getpocket.operations.display']
+      include Import['getpocket.operations.authorize']
+      include Import['getpocket.screens.list_screen']
+      include Import['getpocket.ui.main_frame']
+      include Import['getpocket.ui.access_token']
+
       attr_reader :request_token
 
-      def initialize(request_token)
+      def [](request_token:)
         @request_token = request_token
+        self
       end
 
       def process(reader)
@@ -19,18 +26,13 @@ module Getpocket
 
         return self unless key_symbol == :return
 
-        access_token = Operations::Authorize.authorize(request_token)
-        display
-        ListScreen.new(access_token: access_token, cursor_position: 0, page: 0)
-      end
-
-      private
-
-      def display
-        Getpocket::Operations::Display.render([
-          Getpocket::UI::MainFrame,
-          Getpocket::UI::AccessToken,
+        result = authorize.call(request_token)
+        display.call([
+          main_frame,
+          access_token,
         ])
+
+        list_screen[access_token: result, cursor_position: 0, page: 0]
       end
     end
   end

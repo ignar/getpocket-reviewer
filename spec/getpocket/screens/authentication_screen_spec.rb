@@ -15,9 +15,9 @@ RSpec.describe(Getpocket::Screens::AuthenticationScreen) do
   end
 
   describe '#process' do
-    subject(:result) { described_class.new[request_token: request_token] }
+    subject(:result) { described_class.new[request_token: request_token].process }
 
-    let(:request_token) { double(request_token: '', redirect_url: '')}
+    let(:request_token) { double(request_token: '', redirect_url: '') }
     let(:display) { double }
 
     before do
@@ -30,7 +30,7 @@ RSpec.describe(Getpocket::Screens::AuthenticationScreen) do
         instance_of(Getpocket::Ui::MainFrame),
         instance_of(Getpocket::Ui::Authentication),
       ]))
-      result.process
+      result
     end
   end
 end
