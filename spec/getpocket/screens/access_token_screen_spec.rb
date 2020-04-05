@@ -17,7 +17,7 @@ RSpec.describe(Getpocket::Screens::AccessTokenScreen) do
   describe '#process' do
     subject(:result) { described_class.new[request_token: 'token'].process(reader) }
 
-    let(:authorize) { double(call: 'access-token')}
+    let(:authorize) { double(call: 'access-token') }
     let(:display) { double(call: true) }
 
     before do
@@ -53,6 +53,22 @@ RSpec.describe(Getpocket::Screens::AccessTokenScreen) do
       end
     end
 
-    context 'when user presses other key'
+    context 'when user presses other key' do
+      let(:reader) do
+        double(
+          read_keypress: 'a',
+          console: double(keys: { '\r' => :return, 'a' => 'a' })
+        )
+      end
+
+      it 'returns self' do
+        expect(result).to(be_kind_of(Getpocket::Screens::AccessTokenScreen))
+      end
+
+      it 'does not render anything' do
+        expect(authorize).to_not(receive(:call))
+        result
+      end
+    end
   end
 end
