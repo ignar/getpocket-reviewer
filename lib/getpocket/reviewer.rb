@@ -9,8 +9,10 @@ require 'dry-transaction'
 require "dry/transaction/operation"
 
 require 'getpocket/reviewer/application'
+require 'getpocket/reviewer/connector'
 require 'getpocket/reviewer/screen'
 require 'getpocket/types'
+require 'getpocket/client_configuration'
 require 'getpocket/request_token'
 require 'getpocket/access_token'
 

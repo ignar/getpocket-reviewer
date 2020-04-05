@@ -10,8 +10,6 @@ Getpocket::Reviewer::Application.boot(:screen) do |screen|
   end
 
   start do
-    screen.register('operations.renderer', Getpocket::Operations::Display.new)
-
     reader = TTY::Reader.new
     cursor = TTY::Cursor
     print(cursor.hide)
@@ -23,6 +21,7 @@ Getpocket::Reviewer::Application.boot(:screen) do |screen|
       exit
     end
 
+    # move to the run file
     @state = Getpocket::Screens::WelcomeScreen.new.process
 
     loop do

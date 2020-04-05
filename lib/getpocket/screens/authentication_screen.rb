@@ -1,16 +1,13 @@
 # frozen_string_literal: true
 
-require 'getpocket/ui/authentication'
-require 'getpocket/screens/access_token_screen'
-
 module Getpocket
   module Screens
     class AuthenticationScreen
-      attr_reader :request_token
+      include Import['getpocket.operations.display']
+      include Import['getpocket.ui.authentication']
+      include Import['getpocket.ui.main_frame']
 
-      def initialize(request_token)
-        @request_token = request_token
-      end
+      attr_accessor :request_token
 
       def process(_ = nil)
         display
@@ -20,9 +17,9 @@ module Getpocket
       private
 
       def display
-        Getpocket::Operations::Display.render([
-          Getpocket::UI::MainFrame,
-          Getpocket::UI::Authentication[request_token: request_token],
+        renderer.call([
+          main_frame,
+          authentication[request_token: request_token],
         ])
       end
     end

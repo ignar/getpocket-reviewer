@@ -2,21 +2,28 @@
 
 require 'faraday'
 
+require 'getpocket/reviewer/import'
+
 module Getpocket
   module Operations
     class Authenticate
       include Dry::Transaction::Operation
+      include Import['configuration.client_configuration']
 
-      def call(config)
+      def call
         result = Faraday.post('https://getpocket.com/v3/oauth/request',
-          "{\"consumer_key\": \"#{config.consumer_key}\", \"redirect_uri\": \"#{config.redirect_url}\"}",
+          "{\"consumer_key\": \"#{client_configuration.consumer_key}\", \"redirect_uri\": \"#{client_configuration.redirect_url}\"}",
           {
             'Content-Type' => 'application/json; charset=UTF8',
             'X-Accept' => 'application/json',
           })
         code = JSON.parse(result.body)['code']
 
-        Getpocket::Reviewer::RequestToken.new(consumer_key: config.consumer_key, request_token: code, redirect_url: config.redirect_url)
+        Getpocket::Reviewer::RequestToken.new(
+          consumer_key: client_configuration.consumer_key,
+          request_token: code,
+          redirect_url: client_configuration.redirect_url
+        )
       end
     end
   end

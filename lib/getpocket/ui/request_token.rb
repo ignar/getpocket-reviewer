@@ -5,13 +5,11 @@ require 'getpocket/ui/base'
 module Getpocket
   module Ui
     class RequestToken < Base
-      def self.render
-        new.tap do |instance|
-          instance.view.each do |position, line|
-            row, column = position
-            print instance.cursor.move_to(row, column)
-            print line
-          end
+      def render
+        view.each do |position, line|
+          row, column = position
+          print cursor.move_to(row, column)
+          print line
         end
       end
 

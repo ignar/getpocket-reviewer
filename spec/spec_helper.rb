@@ -5,6 +5,12 @@ require 'webmock/rspec'
 
 require 'getpocket/reviewer'
 
+Dir[File.expand_path('./lib/**/*.rb')].each { |file| require file }
+
+require 'dry/system/stubs'
+
+Getpocket::Reviewer::Application.enable_stubs!
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = '.rspec_status'

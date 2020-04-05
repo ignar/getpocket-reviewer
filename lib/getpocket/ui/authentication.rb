@@ -7,13 +7,13 @@ module Getpocket
     class Authentication < Base
       attr_reader :request_token
 
-      def self.[](args)
-        new(request_token: args.fetch(:request_token))
-      end
+      # def self.[](args)
+      #   new(request_token: args.fetch(:request_token))
+      # end
 
-      def initialize(request_token:)
-        @request_token = request_token
-      end
+      # def initialize(request_token:)
+      #   @request_token = request_token
+      # end
 
       def render
         view.each do |position, line|
