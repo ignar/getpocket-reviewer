@@ -7,16 +7,10 @@ module Getpocket
     class List < Base
       attr_reader :collection, :cursor_position
 
-      def self.[](args)
-        new(
-          cursor_position: args.fetch(:cursor_position),
-          collection: args.fetch(:collection)
-        )
-      end
-
-      def initialize(collection:, cursor_position:)
+      def [](collection:, cursor_position:)
         @collection = collection
         @cursor_position = cursor_position
+        self
       end
 
       def render

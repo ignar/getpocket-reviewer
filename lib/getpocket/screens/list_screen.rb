@@ -5,6 +5,12 @@ require 'getpocket/operations/articles_fetcher'
 module Getpocket
   module Screens
     class ListScreen
+      include Import['getpocket.operations.display']
+      include Import['getpocket.operations.articles_fetcher']
+      include Import['getpocket.ui.main_frame']
+      include Import['getpocket.ui.menu']
+      include Import['getpocket.ui.list']
+
       attr_reader :cursor_position, :access_token, :page
 
       def [](access_token:, cursor_position:, page:)
@@ -15,45 +21,39 @@ module Getpocket
       end
 
       def process(reader)
-        display
-
-        char = reader.read_keypress
-        key_symbol = reader.console.keys[char]
-
-        if key_symbol == :right
-          return ListScreen.new(access_token: access_token, cursor_position: 0, page: page + 1)
-        end
-
-        if key_symbol == :left
-          return ListScreen.new(access_token: access_token, cursor_position: 0, page: page - 1)
-        end
-
-        if key_symbol == :up
-          return ListScreen.new(access_token: access_token, cursor_position: cursor_position - 1, page: page)
-        end
-
-        if key_symbol == :down
-          ListScreen.new(access_token: access_token, cursor_position: cursor_position + 1, page: page)
-        end
-      end
-
-      def display
-        Getpocket::Operations::Display.render([
-          Getpocket::UI::MainFrame,
-          Getpocket::UI::Menu,
-          Getpocket::UI::List[
+        display.call([
+          main_frame,
+          menu,
+          list[
             cursor_position: cursor_position,
             collection: collection
           ],
         ])
 
-        ListScreen.new(access_token: access_token, cursor_position: cursor_position, page: page)
+        char = reader.read_keypress
+        key_symbol = reader.console.keys[char]
+
+        if key_symbol == :right
+          return self.class.new[access_token: access_token, cursor_position: 0, page: page + 1]
+        end
+
+        if key_symbol == :left
+          return self.class.new[access_token: access_token, cursor_position: 0, page: page - 1]
+        end
+
+        if key_symbol == :up
+          return self.class.new[access_token: access_token, cursor_position: cursor_position - 1, page: page]
+        end
+
+        if key_symbol == :down
+          self.class.new[access_token: access_token, cursor_position: cursor_position + 1, page: page]
+        end
       end
 
       private
 
       def collection
-        Operations::ArticlesFetcher.instance.tap do |instance|
+        articles_fetcher.instance.tap do |instance|
           instance.prepare(access_token, page)
         end
       end
