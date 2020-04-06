@@ -2,8 +2,12 @@
 require 'spec_helper'
 
 RSpec.describe(Getpocket::Operations::Authenticate) do
+  before do
+    Getpocket::Reviewer::Application.start(:connector)
+  end
+
   describe '#call' do
-    subject(:result) { described_class.new.call(config) }
+    subject(:result) { described_class.new.call }
 
     let(:config) { double(consumer_key: 'uyytr', redirect_url: 'ruby-cli:authorizationFinished') }
     let(:request_token) { 'ix78=92c-37sdfh' }
