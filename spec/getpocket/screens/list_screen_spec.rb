@@ -30,7 +30,7 @@ RSpec.describe(Getpocket::Screens::ListScreen) do
       Getpocket::Reviewer::Application.start(:connector)
       Getpocket::Reviewer::Application.stub('getpocket.operations.display', display)
       Getpocket::Reviewer::Application.stub('getpocket.operations.articles_fetcher', articles_fetcher)
-      allow(display).to receive(:call)
+      allow(display).to(receive(:call))
     end
 
     let(:access_token) { double }
@@ -80,32 +80,49 @@ RSpec.describe(Getpocket::Screens::ListScreen) do
     context 'when pressed down' do
       let(:pressed_key) { "\e[B" }
 
-      it 'returns the new state with updated cursor position' do
-        expect(result.cursor_position).to eq(2)
+      context 'when it is the last line'
+      context 'when it is not the last line' do
+        it 'returns the new state with updated cursor position' do
+          expect(result.cursor_position).to(eq(2))
+        end
       end
     end
 
     context 'when pressed up' do
       let(:pressed_key) { "\e[A" }
 
-      it 'returns the new state with updated cursor position' do
-        expect(result.cursor_position).to eq(0)
+      context 'when it is the first line'
+
+      context 'when it is not the first line' do
+        it 'returns the new state with updated cursor position' do
+          expect(result.cursor_position).to(eq(0))
+        end
       end
     end
 
     context 'when pressed left' do
       let(:pressed_key) { "\e[D" }
 
-      it 'returns the new state with updated page number' do
-        expect(result.page).to eq(0)
+      context 'when it is the first page' do
+        it 'returns a new state with the same page'
+        it 'returns a new state with a message'
+      end
+
+      context 'when it is not the first page' do
+        it 'returns the new state with updated page number' do
+          expect(result.page).to(eq(0))
+        end
       end
     end
 
     context 'when pressed right' do
       let(:pressed_key) { "\e[C" }
 
-      it 'returns the new state with updated page number' do
-        expect(result.page).to eq(2)
+      context 'when it is the last page'
+      context 'when it is not the last page' do
+        it 'returns the new state with updated page number' do
+          expect(result.page).to(eq(2))
+        end
       end
     end
   end
