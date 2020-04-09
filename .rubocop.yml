@@ -1,2 +1,11 @@
 inherit_gem:
   rubocop-shopify: rubocop.yml
+  
+require:
+  - rubocop-rspec
+
+Style/MethodCallWithArgsParentheses:
+  IgnoredMethods:
+    - describe
+    - to
+    - require

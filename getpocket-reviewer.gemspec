@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('rspec', '~> 3.0')
   spec.add_development_dependency('rubocop', '~> 0.80')
   spec.add_development_dependency('rubocop-shopify', '~> 1.0')
+  spec.add_development_dependency('rubocop-rspec', '~> 1.38')
   spec.add_development_dependency('webmock', '~> 3.8.3')
 
   spec.add_dependency('dry-system', '~> 0.17')
