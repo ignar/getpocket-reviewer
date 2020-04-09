@@ -8,4 +8,5 @@ Style/MethodCallWithArgsParentheses:
   IgnoredMethods:
     - describe
     - to
+    - to_not
     - require
