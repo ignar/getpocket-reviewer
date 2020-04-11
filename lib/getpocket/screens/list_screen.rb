@@ -6,17 +6,18 @@ module Getpocket
   module Screens
     class ListScreen
       include Import['getpocket.operations.display']
-      include Import['getpocket.operations.articles_fetcher']
+      include Import['getpocket.local_repository']
       include Import['getpocket.ui.main_frame']
       include Import['getpocket.ui.menu']
       include Import['getpocket.ui.list']
 
-      attr_reader :cursor_position, :access_token, :page
+      attr_reader :cursor_position, :access_token, :first_element, :per_page
 
-      def [](access_token:, cursor_position:, page:)
+      def [](access_token:, per_page:, cursor_position: 0, first_element: nil)
         @access_token = access_token
         @cursor_position = cursor_position
-        @page = page
+        @first_element = first_element
+        @per_page = per_page
         self
       end
 
@@ -33,29 +34,65 @@ module Getpocket
         char = reader.read_keypress
         key_symbol = reader.console.keys[char]
 
-        if key_symbol == :right
-          return self.class.new[access_token: access_token, cursor_position: 0, page: page + 1]
-        end
-
-        if key_symbol == :left
-          return self.class.new[access_token: access_token, cursor_position: 0, page: page - 1]
-        end
+        # TODO: use parameter object
+        # TODO refactor
 
         if key_symbol == :up
-          return self.class.new[access_token: access_token, cursor_position: cursor_position - 1, page: page]
+          if cursor_position == 0
+            return self.class.new[
+              access_token: access_token,
+              cursor_position: cursor_position,
+              per_page: per_page,
+              first_element: previous_element
+            ]
+          else
+            return self.class.new[
+              access_token: access_token,
+              cursor_position: cursor_position - 1,
+              per_page: per_page,
+              first_element: collection.first
+            ]
+          end
         end
 
         if key_symbol == :down
-          self.class.new[access_token: access_token, cursor_position: cursor_position + 1, page: page]
+          # TODO: hold situation when it is the last element in the whole collection
+          @cursor_position += 1 if @cursor_position < per_page
+          if cursor_position == per_page
+            self.class.new[
+              access_token: access_token,
+              cursor_position: cursor_position,
+              per_page: per_page,
+              first_element: next_element
+            ]
+          else
+            self.class.new[
+              access_token: access_token,
+              cursor_position: cursor_position,
+              per_page: per_page,
+              first_element: collection.first
+            ]
+          end
         end
+
+        # TODO: test this line
+        self
       end
 
       private
 
       def collection
-        articles_fetcher.instance.tap do |instance|
-          instance.prepare(access_token, page)
-        end
+        # TODO: use first article identifier of the page, page number (?), per page
+        local_repository.retrieve(per_page: per_page, first_element: first_element)
+      end
+
+      # TODO: does not belong here, feature envy
+      def previous_element
+        local_repository.previous(collection.first)
+      end
+
+      def next_element
+        collection[1]
       end
     end
   end

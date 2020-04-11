@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe(Getpocket::Screens::RequestTokenScreen) do
+RSpec.describe Getpocket::Screens::RequestTokenScreen do
   subject(:result) { described_class.new.process }
 
   let(:request_token) { double }
@@ -12,19 +12,19 @@ RSpec.describe(Getpocket::Screens::RequestTokenScreen) do
     Getpocket::Reviewer::Application.start(:connector)
     Getpocket::Reviewer::Application.stub('getpocket.operations.authenticate', authenticate)
     Getpocket::Reviewer::Application.stub('getpocket.operations.display', display)
-    allow(display).to(receive(:call))
+    allow(display).to receive(:call)
   end
 
   describe '#process' do
     it 'returns AuthenticationScreen' do
-      expect(result).to(be_kind_of(Getpocket::Screens::AuthenticationScreen))
+      expect(result).to be_kind_of(Getpocket::Screens::AuthenticationScreen)
     end
 
     it 'renders expected screens' do
-      expect(display).to(receive(:call).with([
+      expect(display).to receive(:call).with([
         instance_of(Getpocket::Ui::MainFrame),
         instance_of(Getpocket::Ui::RequestToken),
-      ]))
+      ])
       result
     end
   end

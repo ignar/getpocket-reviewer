@@ -14,9 +14,8 @@ module Getpocket
         }
       end
 
-      def call(since: nil, per_page:)
-        params = default_params.merge(count: per_page)
-        params = params.merge(since: since) if since
+      def call(offset:, per_page:)
+        params = default_params.merge(count: per_page, offset: offset)
 
         result = Faraday.post('https://getpocket.com/v3/get',
           params.to_json,
@@ -26,7 +25,9 @@ module Getpocket
           })
 
         json = JSON.parse(result.body)
-        json['list'].values
+        return [] if json['list'].empty?
+        
+        json['list'].values.map { |entry| entry.transform_keys(&:to_sym) }
       end
     end
   end

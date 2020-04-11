@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe(Getpocket::Screens::ListScreen) do
+RSpec.describe Getpocket::Screens::ListScreen do
   describe '#[]' do
     it 'returns self' do
       # TODO: use entity
-      expect(subject[access_token: 'token', cursor_position: 0, page: 0]).to(be(subject))
+      expect(subject[access_token: 'token', cursor_position: 0, per_page: 0]).to be(subject)
     end
 
     it 'sets a state' do
-      expect { subject[access_token: 'access-token', cursor_position: 0, page: 0] }.to(
+      expect { subject[access_token: 'access-token', cursor_position: 0, per_page: 0, first_element: :a] }.to \
         change(subject, :access_token).from(nil).to('access-token')
         .and(change(subject, :cursor_position).from(nil).to(0))
-        .and(change(subject, :page).from(nil).to(0))
-      )
+        .and(change(subject, :per_page).from(nil).to(0))
+        .and(change(subject, :first_element).from(nil).to(:a))
     end
   end
 
@@ -22,15 +22,15 @@ RSpec.describe(Getpocket::Screens::ListScreen) do
       described_class.new[
         access_token: access_token,
         cursor_position: 1,
-        page: 1
+        per_page: 10
       ].process(reader)
     end
 
     before do
       Getpocket::Reviewer::Application.start(:connector)
       Getpocket::Reviewer::Application.stub('getpocket.operations.display', display)
-      Getpocket::Reviewer::Application.stub('getpocket.operations.articles_fetcher', articles_fetcher)
-      allow(display).to(receive(:call))
+      Getpocket::Reviewer::Application.stub('getpocket.local_repository', local_repository)
+      allow(display).to receive(:call)
     end
 
     let(:access_token) { double }
@@ -50,14 +50,7 @@ RSpec.describe(Getpocket::Screens::ListScreen) do
     end
 
     let(:display) { double }
-
-    let(:articles_fetcher) do
-      Class.new do
-        include Singleton
-
-        def prepare(_, _); end
-      end
-    end
+    let(:local_repository) { double('LocalRepository', retrieve: [1, 2, 3]) }
 
     it 'renders expected screens' do
       expect(display).to(receive(:call).with([
@@ -72,7 +65,7 @@ RSpec.describe(Getpocket::Screens::ListScreen) do
       let(:pressed_key) { 'a' }
 
       it 'renders ones does nothing' do
-        expect(display).to(receive(:call).once)
+        expect(display).to receive(:call).once
         result
       end
     end
@@ -83,7 +76,7 @@ RSpec.describe(Getpocket::Screens::ListScreen) do
       context 'when it is the last line'
       context 'when it is not the last line' do
         it 'returns the new state with updated cursor position' do
-          expect(result.cursor_position).to(eq(2))
+          expect(result.cursor_position).to eq(2)
         end
       end
     end
@@ -95,33 +88,7 @@ RSpec.describe(Getpocket::Screens::ListScreen) do
 
       context 'when it is not the first line' do
         it 'returns the new state with updated cursor position' do
-          expect(result.cursor_position).to(eq(0))
-        end
-      end
-    end
-
-    context 'when pressed left' do
-      let(:pressed_key) { "\e[D" }
-
-      context 'when it is the first page' do
-        it 'returns a new state with the same page'
-        it 'returns a new state with a message'
-      end
-
-      context 'when it is not the first page' do
-        it 'returns the new state with updated page number' do
-          expect(result.page).to(eq(0))
-        end
-      end
-    end
-
-    context 'when pressed right' do
-      let(:pressed_key) { "\e[C" }
-
-      context 'when it is the last page'
-      context 'when it is not the last page' do
-        it 'returns the new state with updated page number' do
-          expect(result.page).to(eq(2))
+          expect(result.cursor_position).to eq(0)
         end
       end
     end

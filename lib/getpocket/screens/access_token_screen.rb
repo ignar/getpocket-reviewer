@@ -9,7 +9,7 @@ module Getpocket
     class AccessTokenScreen
       include Import['getpocket.operations.display']
       include Import['getpocket.operations.authorize']
-      include Import['getpocket.screens.list_screen']
+      include Import['getpocket.screens.synchronization_screen']
       include Import['getpocket.ui.main_frame']
       include Import['getpocket.ui.access_token']
 
@@ -32,7 +32,7 @@ module Getpocket
           access_token,
         ])
 
-        list_screen[access_token: result, cursor_position: 0, page: 0]
+        synchronization_screen[access_token: result]
       end
     end
   end

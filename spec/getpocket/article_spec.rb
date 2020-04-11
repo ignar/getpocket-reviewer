@@ -42,4 +42,57 @@ RSpec.describe Getpocket::Article do
     it { is_expected.to have_attribute(:images) }
     it { is_expected.to have_attribute(:videos) }
   end
+
+  describe 'equality' do
+    # TODO move to helper
+    let(:other) do
+      Getpocket::Article.new(
+        item_id: '229279690',
+        resolved_id: "229279690",
+        given_url: "http:\/\/www.grantland.com\/blog\/the-triangle\/post\/_\/id\/38347\/ryder-cup-preview",
+        given_title: "The Massive Ryder Cup Preview - The Triangle Blog - Grantland",
+        favorite: "0",
+        status: "0",
+        resolved_title: "The Massive Ryder Cup Preview",
+        resolved_url: "http:\/\/www.grantland.com\/blog\/the-triangle\/post\/_\/id\/38347\/ryder-cup-preview",
+        excerpt: "The list of things I love about the Ryder Cup is so long that it could fill a (tedious) novel"\
+          ", and golf fans can probably guess most of them.",
+        is_article: "1",
+        has_video: "1",
+        has_image: "1",
+        word_count: "3197",
+        images: [],
+        videos: []
+      )
+    end
+
+    let(:other_by_the_same) do
+      Getpocket::Article.new(
+        item_id: '229279689',
+        resolved_id: "229279689",
+        given_url: "http:\/\/www.grantland.com\/blog\/the-triangle\/post\/_\/id\/38347\/ryder-cup-preview",
+        given_title: "The Massive Ryder Cup Preview - The Triangle Blog - Grantland",
+        favorite: "0",
+        status: "0",
+        resolved_title: "The Massive Ryder Cup Preview",
+        resolved_url: "http:\/\/www.grantland.com\/blog\/the-triangle\/post\/_\/id\/38347\/ryder-cup-preview",
+        excerpt: "The list of things I love about the Ryder Cup is so long that it could fill a (tedious) novel"\
+          ", and golf fans can probably guess most of them.",
+        is_article: "1",
+        has_video: "1",
+        has_image: "1",
+        word_count: "3197",
+        images: [],
+        videos: []
+      )
+    end
+
+    it 'compares entities by item id' do
+      expect(subject).to_not eq(other)
+    end
+
+    it 'recognize if entity is the same' do
+      expect(subject).to eq(other_by_the_same)
+    end
+  end
 end

@@ -6,6 +6,7 @@ module Getpocket
   module Screens
     class WelcomeScreen
       include Import['getpocket.operations.display']
+      include Import['getpocket.screens.request_token_screen']
       include Import['getpocket.ui.welcome']
       include Import['getpocket.ui.main_frame']
 
@@ -14,7 +15,7 @@ module Getpocket
           main_frame,
           welcome,
         ])
-        RequestTokenScreen.new
+        request_token_screen
       end
     end
   end

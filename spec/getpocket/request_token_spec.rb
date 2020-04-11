@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe(Getpocket::Reviewer::RequestToken) do
+RSpec.describe Getpocket::Reviewer::RequestToken do
   subject { described_class.new(consumer_key: 'consumer-key', redirect_url: 'redirect-url') }
 
   describe '#consumer_key' do
@@ -9,10 +9,10 @@ RSpec.describe(Getpocket::Reviewer::RequestToken) do
   end
 
   describe '#request_token' do
-    it { expect(subject).torespond_to(:request_token) }
+    it { expect(subject).to respond_to(:request_token) }
 
     it 'has a default value' do
-      expect(subject.request_token).to(be_empty)
+      expect(subject.request_token).to be_empty
     end
 
     context 'when value given on initialization' do

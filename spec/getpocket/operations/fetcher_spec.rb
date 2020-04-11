@@ -30,34 +30,46 @@ RSpec.describe Getpocket::Operations::Fetcher do
       stub_request(:post, 'https://getpocket.com/v3/get').to_return(body: api_answer)
     end
 
-    context 'when no initial position given' do
-      subject { described_class.new(config).call(per_page: 10) }
+    subject(:result) { described_class.new(config).call(offset: 0, per_page: 10) }
 
-      it 'makes a request to the api' do
-        subject
-        expect(
-          a_request(:post, 'https://getpocket.com/v3/get')
-        ).to have_been_made.once
+    it 'makes a request to the api' do
+      result
+      expect(
+        a_request(:post, 'https://getpocket.com/v3/get')
+      ).to have_been_made.once
+    end
+
+    it 'returns fetched result' do
+      expect(result.first.keys).to all(be_kind_of(Symbol))
+    end
+
+    it 'does not include `since` parameter in the request' do
+      result
+      expect(
+        a_request(:post, 'https://getpocket.com/v3/get').with do |req|
+          params = JSON.parse(req.body)
+          expect(params).to_not include('since')
+        end
+      ).to have_been_made
+    end
+
+    it 'uses per_page parameter in the request' do
+      result
+      expect(
+        a_request(:post, 'https://getpocket.com/v3/get').with do |req|
+          params = JSON.parse(req.body)
+          expect(params).to include('count')
+        end
+      ).to have_been_made
+    end
+
+    context 'when no articles in the answer' do
+      let(:api_answer) do
+        '{"status":1,"list":[]}'
       end
 
-      it 'does not include `since` parameter in the request' do
-        subject
-        expect(
-          a_request(:post, 'https://getpocket.com/v3/get').with do |req|
-            params = JSON.parse(req.body)
-            expect(params).to_not include('since')
-          end
-        ).to have_been_made
-      end
-
-      it 'uses per_page parameter in the request' do
-        subject
-        expect(
-          a_request(:post, 'https://getpocket.com/v3/get').with do |req|
-            params = JSON.parse(req.body)
-            expect(params).to include('count')
-          end
-        ).to have_been_made
+      it 'returns an empty array' do
+        expect(result).to be_empty
       end
     end
   end

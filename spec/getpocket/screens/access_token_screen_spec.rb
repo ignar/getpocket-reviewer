@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe(Getpocket::Screens::AccessTokenScreen) do
+RSpec.describe Getpocket::Screens::AccessTokenScreen do
   describe '#[]' do
     it 'returns self' do
       expect(subject[request_token: 'request-token']).to(be(subject))
@@ -35,21 +35,19 @@ RSpec.describe(Getpocket::Screens::AccessTokenScreen) do
       end
 
       it 'renders expected screens' do
-        expect(display).to(receive(:call).with([
+        expect(display).to receive(:call).with([
           instance_of(Getpocket::Ui::MainFrame),
           instance_of(Getpocket::Ui::AccessToken),
-        ]))
+        ])
         result
       end
 
-      it 'returns ListScreen' do
-        expect(result).to(be_kind_of(Getpocket::Screens::ListScreen))
+      it 'returns SynchronizationScreen' do
+        expect(result).to be_kind_of(Getpocket::Screens::SynchronizationScreen)
       end
 
-      it 'sets the initial state of the ListScreen' do
-        expect(result.access_token).to(eq('access-token'))
-        expect(result.cursor_position).to(eq(0))
-        expect(result.page).to(eq(0))
+      it 'sets the initial state of the SynchronizationScreen' do
+        expect(result.access_token).to eq('access-token')
       end
     end
 
@@ -62,11 +60,11 @@ RSpec.describe(Getpocket::Screens::AccessTokenScreen) do
       end
 
       it 'returns self' do
-        expect(result).to(be_kind_of(Getpocket::Screens::AccessTokenScreen))
+        expect(result).to be_kind_of(Getpocket::Screens::AccessTokenScreen)
       end
 
       it 'does not render anything' do
-        expect(authorize).to_not(receive(:call))
+        expect(authorize).to_not receive(:call)
         result
       end
     end
