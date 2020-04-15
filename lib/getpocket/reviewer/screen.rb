@@ -12,8 +12,7 @@ Getpocket::Reviewer::Application.boot(:screen) do |screen|
   start do
     reader = TTY::Reader.new
     cursor = TTY::Cursor
-    print(cursor.hide)
-    print(cursor.clear_screen)
+    print cursor.hide
 
     reader.on(:keyctrl_x, :keyescape) do
       print cursor.clear_screen
@@ -21,7 +20,6 @@ Getpocket::Reviewer::Application.boot(:screen) do |screen|
       exit
     end
 
-    # move to the run file
     @state = Getpocket::Screens::WelcomeScreen.new.process
 
     loop do

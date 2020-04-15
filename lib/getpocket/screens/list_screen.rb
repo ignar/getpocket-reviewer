@@ -57,16 +57,16 @@ module Getpocket
 
         if key_symbol == :down
           # TODO: hold situation when it is the last element in the whole collection
-          @cursor_position += 1 if @cursor_position < per_page
           if cursor_position == per_page
-            self.class.new[
+            return self.class.new[
               access_token: access_token,
               cursor_position: cursor_position,
               per_page: per_page,
               first_element: next_element
             ]
           else
-            self.class.new[
+            @cursor_position += 1
+            return self.class.new[
               access_token: access_token,
               cursor_position: cursor_position,
               per_page: per_page,

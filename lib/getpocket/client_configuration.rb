@@ -2,7 +2,7 @@
 
 module Getpocket
   module Reviewer
-    class ClientConfiguration < Dry::Struct::Value
+    class ClientConfiguration < Dry::Struct
       attribute :consumer_key, Types::Strict::String
       attribute :redirect_url, Types::Strict::String
     end

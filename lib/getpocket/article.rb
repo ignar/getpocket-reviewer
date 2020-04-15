@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Getpocket
-  class Article < Dry::Struct::Value
+  class Article < Dry::Struct
     attribute :item_id, Types::Strict::String
     attribute :resolved_id, Types::Strict::String
     attribute :given_url, Types::Coercible::String

@@ -6,7 +6,6 @@ module Getpocket
   module Ui
     class MainFrame < Base
       def render
-        print(cursor.clear_screen)
         print TTY::Box.frame(top: 0, left: 0, width: screen_width, height: screen_height) do
           'text '
         end

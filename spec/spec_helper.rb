@@ -5,8 +5,6 @@ require 'webmock/rspec'
 
 require 'getpocket/reviewer'
 
-Dir[File.expand_path('./lib/**/*.rb')].each { |file| require file }
-
 require 'dry/system/stubs'
 
 Getpocket::Reviewer::Application.enable_stubs!

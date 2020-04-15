@@ -2,7 +2,7 @@
 
 module Getpocket
   module Reviewer
-    class AccessToken < Dry::Struct::Value
+    class AccessToken < Dry::Struct
       attribute :consumer_key, Types::Strict::String
       attribute :request_token, Types::Strict::String
       attribute :redirect_url, Types::Strict::String
