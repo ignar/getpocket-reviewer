@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe(Getpocket::Reviewer::ClientConfiguration) do
+RSpec.describe(Getpocket::ClientConfiguration) do
   subject { described_class.new(consumer_key: 'consumer-key', redirect_url: 'redirect-url') }
 
   describe '#consumer_key' do

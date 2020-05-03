@@ -3,8 +3,8 @@
 
 require 'bundler/setup'
 
-require 'getpocket/reviewer'
+require_relative '../system/boot'
 
-Getpocket::Reviewer::Application.start(:connector)
-Getpocket::Reviewer::Application.start(:screen)
-Getpocket::Reviewer::Application.finalize!
+Application.start(:getpocket_api)
+Application.start(:screen)
+Application.finalize!

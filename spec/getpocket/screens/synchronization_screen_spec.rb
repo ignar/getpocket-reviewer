@@ -10,9 +10,8 @@ RSpec.describe Getpocket::Screens::SynchronizationScreen do
     let(:synchronizer) { double(call: true) }
 
     before do
-      Getpocket::Reviewer::Application.start(:connector)
-      Getpocket::Reviewer::Application.stub('getpocket.operations.display', display)
-      Getpocket::Reviewer::Application.stub('getpocket.articles_synchronizer', synchronizer)
+      Application.stub('getpocket.operations.display', display)
+      Application.stub('getpocket.articles_synchronizer', synchronizer)
     end
 
     it 'returns ListScreen' do

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'getpocket/reviewer/import'
-
 module Getpocket
   module Screens
     class WelcomeScreen

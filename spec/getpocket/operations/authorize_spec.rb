@@ -20,7 +20,7 @@ RSpec.describe Getpocket::Operations::Authorize do
         .to have_been_made.once
     end
     it 'returns AccessToken' do
-      expect(result).to be_kind_of(Getpocket::Reviewer::AccessToken)
+      expect(result).to be_kind_of(Getpocket::AccessToken)
     end
   end
 end

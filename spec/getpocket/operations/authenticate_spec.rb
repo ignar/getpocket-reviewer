@@ -2,10 +2,6 @@
 require 'spec_helper'
 
 RSpec.describe(Getpocket::Operations::Authenticate) do
-  before do
-    Getpocket::Reviewer::Application.start(:connector)
-  end
-
   describe '#call' do
     subject(:result) { described_class.new.call }
 
@@ -26,7 +22,7 @@ RSpec.describe(Getpocket::Operations::Authenticate) do
       end
 
       it 'returns RequestToken object' do
-        expect(result).to(be_kind_of(Getpocket::Reviewer::RequestToken))
+        expect(result).to(be_kind_of(Getpocket::RequestToken))
       end
     end
 

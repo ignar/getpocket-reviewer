@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-Getpocket::Reviewer::Application.boot(:screen) do |screen|
+Application.boot(:screen) do |screen|
   init do
+    require 'getpocket/types'
     require 'getpocket/screens/welcome_screen'
     require 'getpocket/screens/request_token_screen'
     require 'getpocket/screens/access_token_screen'
@@ -10,6 +11,7 @@ Getpocket::Reviewer::Application.boot(:screen) do |screen|
   end
 
   start do
+    # it must be a Screen class
     reader = TTY::Reader.new
     cursor = TTY::Cursor
     print cursor.hide

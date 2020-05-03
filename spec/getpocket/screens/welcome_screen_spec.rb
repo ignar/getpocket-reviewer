@@ -7,8 +7,7 @@ RSpec.describe Getpocket::Screens::WelcomeScreen do
   let(:display) { double }
 
   before do
-    Getpocket::Reviewer::Application.start(:connector)
-    Getpocket::Reviewer::Application.stub('getpocket.operations.display', display)
+    Application.stub('getpocket.operations.display', display)
     allow(display).to receive(:call)
   end
 

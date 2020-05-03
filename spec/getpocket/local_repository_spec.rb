@@ -19,7 +19,7 @@ RSpec.describe Getpocket::LocalRepository do
     end
 
     it 'returns indicated amount of element startign from given position' do
-      expect(result).to eq((2..11).to_a)
+      expect(result).to eq((2..12).to_a)
     end
   end
 

@@ -27,9 +27,8 @@ RSpec.describe Getpocket::Screens::ListScreen do
     end
 
     before do
-      Getpocket::Reviewer::Application.start(:connector)
-      Getpocket::Reviewer::Application.stub('getpocket.operations.display', display)
-      Getpocket::Reviewer::Application.stub('getpocket.local_repository', local_repository)
+      Application.stub('getpocket.operations.display', display)
+      Application.stub('getpocket.local_repository', local_repository)
       allow(display).to receive(:call)
     end
 

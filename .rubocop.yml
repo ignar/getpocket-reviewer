@@ -10,5 +10,6 @@ Style/MethodCallWithArgsParentheses:
     - to
     - to_not
     - require
+    - require_relative
     - raise
     - print

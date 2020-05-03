@@ -3,11 +3,14 @@
 require 'bundler/setup'
 require 'webmock/rspec'
 
-require 'getpocket/reviewer'
+require_relative '../system/boot'
+Application.start(:getpocket_api)
 
 require 'dry/system/stubs'
 
-Getpocket::Reviewer::Application.enable_stubs!
+Dir[File.expand_path(File.join('lib', '**', '*.rb'))].each { |f| require f }
+
+Application.enable_stubs!
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe Getpocket::Reviewer::RequestToken do
+RSpec.describe Getpocket::RequestToken do
   subject { described_class.new(consumer_key: 'consumer-key', redirect_url: 'redirect-url') }
 
   describe '#consumer_key' do

@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
 require 'faraday'
-
-require 'getpocket/reviewer/import'
+require 'json'
 
 module Getpocket
   module Operations
     class Authenticate
       include Dry::Transaction::Operation
-      include Import['configuration.client_configuration']
+      include Import[
+        'configuration.client_configuration',
+        'getpocket.request_token'
+      ]
 
       def call
         result = Faraday.post('https://getpocket.com/v3/oauth/request',
@@ -19,7 +21,7 @@ module Getpocket
           })
         code = JSON.parse(result.body)['code']
 
-        Getpocket::Reviewer::RequestToken.new(
+        request_token.new(
           consumer_key: client_configuration.consumer_key,
           request_token: code,
           redirect_url: client_configuration.redirect_url

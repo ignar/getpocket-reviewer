@@ -21,9 +21,8 @@ RSpec.describe Getpocket::Screens::AccessTokenScreen do
     let(:display) { double(call: true) }
 
     before do
-      Getpocket::Reviewer::Application.start(:connector)
-      Getpocket::Reviewer::Application.stub('getpocket.operations.display', display)
-      Getpocket::Reviewer::Application.stub('getpocket.operations.authorize', authorize)
+      Application.stub('getpocket.operations.display', display)
+      Application.stub('getpocket.operations.authorize', authorize)
     end
 
     context 'when user presses `returns`' do

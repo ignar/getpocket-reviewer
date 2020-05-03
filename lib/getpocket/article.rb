@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'getpocket/types'
+
 module Getpocket
   class Article < Dry::Struct
     attribute :item_id, Types::Strict::String

@@ -13,8 +13,8 @@ RSpec.describe Getpocket::ArticlesSynchronizer do
 
     before do
       allow(getpocket_repository).to receive(:retrieve).and_return(collection_1, collection_2)
-      Getpocket::Reviewer::Application.stub('getpocket.getpocket_repository', getpocket_repository)
-      Getpocket::Reviewer::Application.stub('getpocket.local_repository', local_repository)
+      Application.stub('getpocket.getpocket_repository', getpocket_repository)
+      Application.stub('getpocket.local_repository', local_repository)
     end
 
     it 'returns all entries from Getpocket as a collection' do

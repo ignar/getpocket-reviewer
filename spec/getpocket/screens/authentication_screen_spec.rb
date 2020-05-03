@@ -21,8 +21,7 @@ RSpec.describe(Getpocket::Screens::AuthenticationScreen) do
     let(:display) { double }
 
     before do
-      Getpocket::Reviewer::Application.start(:connector)
-      Getpocket::Reviewer::Application.stub('getpocket.operations.display', display)
+      Application.stub('getpocket.operations.display', display)
     end
 
     it 'renders expected screens' do
