@@ -3,6 +3,9 @@
 require 'bundler/setup'
 require 'webmock/rspec'
 
+require 'simplecov'
+SimpleCov.start
+
 require_relative '../system/boot'
 Application.start(:getpocket_api)
 
