@@ -5,14 +5,13 @@ RSpec.describe Getpocket::Screens::ListScreen do
   describe '#[]' do
     it 'returns self' do
       # TODO: use entity
-      expect(subject[access_token: 'token', cursor_position: 0, per_page: 0]).to be(subject)
+      expect(subject[access_token: 'token', cursor_position: 0]).to be(subject)
     end
 
     it 'sets a state' do
-      expect { subject[access_token: 'access-token', cursor_position: 0, per_page: 0, first_element: :a] }.to \
+      expect { subject[access_token: 'access-token', cursor_position: 0, first_element: :a] }.to \
         change(subject, :access_token).from(nil).to('access-token')
         .and(change(subject, :cursor_position).from(nil).to(0))
-        .and(change(subject, :per_page).from(nil).to(0))
         .and(change(subject, :first_element).from(nil).to(:a))
     end
   end
@@ -22,7 +21,6 @@ RSpec.describe Getpocket::Screens::ListScreen do
       described_class.new[
         access_token: access_token,
         cursor_position: 1,
-        per_page: 10
       ].process(reader)
     end
 

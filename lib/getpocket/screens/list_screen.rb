@@ -5,19 +5,20 @@ require 'getpocket/operations/articles_fetcher'
 module Getpocket
   module Screens
     class ListScreen
+      include Import['getpocket.screen_size']
       include Import['getpocket.operations.display']
       include Import['getpocket.local_repository']
       include Import['getpocket.ui.main_frame']
       include Import['getpocket.ui.menu']
       include Import['getpocket.ui.list']
 
-      attr_reader :cursor_position, :access_token, :first_element, :per_page
+      attr_reader :cursor_position, :access_token, :first_element
 
-      def [](access_token:, per_page:, cursor_position: 0, first_element: nil)
+      # TODO: use current article id, not position
+      def [](access_token:, cursor_position: 0, first_element: nil)
         @access_token = access_token
         @cursor_position = cursor_position
         @first_element = first_element
-        @per_page = per_page
         self
       end
 
@@ -42,14 +43,12 @@ module Getpocket
             return self.class.new[
               access_token: access_token,
               cursor_position: cursor_position,
-              per_page: per_page,
               first_element: previous_element
             ]
           else
             return self.class.new[
               access_token: access_token,
               cursor_position: cursor_position - 1,
-              per_page: per_page,
               first_element: collection.first
             ]
           end
@@ -61,7 +60,6 @@ module Getpocket
             return self.class.new[
               access_token: access_token,
               cursor_position: cursor_position,
-              per_page: per_page,
               first_element: next_element
             ]
           else
@@ -69,7 +67,6 @@ module Getpocket
             return self.class.new[
               access_token: access_token,
               cursor_position: cursor_position,
-              per_page: per_page,
               first_element: collection.first
             ]
           end
@@ -93,6 +90,10 @@ module Getpocket
 
       def next_element
         collection[1]
+      end
+
+      def per_page
+        screen_size.height - 10
       end
     end
   end

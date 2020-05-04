@@ -8,6 +8,7 @@ SimpleCov.start
 
 require_relative '../system/boot'
 Application.start(:getpocket_api)
+Application.start(:screen)
 
 require 'dry/system/stubs'
 

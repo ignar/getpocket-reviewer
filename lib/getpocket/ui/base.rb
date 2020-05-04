@@ -17,16 +17,6 @@ module Getpocket
       def cursor
         TTY::Cursor
       end
-
-      private
-
-      def screen_width
-        TTY::Screen.width
-      end
-
-      def screen_height
-        TTY::Screen.height
-      end
     end
   end
 end

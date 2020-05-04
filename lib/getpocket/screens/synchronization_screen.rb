@@ -24,7 +24,7 @@ module Getpocket
         # TODO: Check for a result
         articles = articles_synchronizer.call(access_token)
 
-        list_screen[access_token: access_token, cursor_position: 0, per_page: 10]
+        list_screen[access_token: access_token, cursor_position: 0]
       end
     end
   end
