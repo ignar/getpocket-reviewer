@@ -26,7 +26,7 @@ module Getpocket
 
         json = JSON.parse(result.body)
         return [] if json['list'].empty?
-        
+
         json['list'].values.map { |entry| entry.transform_keys(&:to_sym) }
       end
     end

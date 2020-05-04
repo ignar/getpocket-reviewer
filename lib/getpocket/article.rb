@@ -28,6 +28,10 @@ module Getpocket
       self == other
     end
 
+    def url
+      given_url
+    end
+
     def inspect
       "#<Article[item_id=#{item_id}]>"
     end

@@ -17,7 +17,7 @@ module Getpocket
         instance.all.to_a
       end
 
-      # TODO is it used?
+      # TODO: is it used?
       def find_all(offset: 0, limit: 0)
         result = instance.all.to_a
 

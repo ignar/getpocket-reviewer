@@ -27,7 +27,9 @@ RSpec.describe Getpocket::Screens::ListScreen do
     before do
       Application.stub('getpocket.operations.display', display)
       Application.stub('getpocket.local_repository', local_repository)
+      Application.stub('link_opener', link_opener)
       allow(display).to receive(:call)
+      allow(link_opener).to receive(:open)
     end
 
     let(:access_token) { double }
@@ -38,6 +40,7 @@ RSpec.describe Getpocket::Screens::ListScreen do
         read_keypress: pressed_key,
         console: double(keys: {
           '\r' => :return,
+          '\n' => :enter,
           "\e[A" => :up,
           "\e[B" => :down,
           "\e[C" => :right,
@@ -46,8 +49,16 @@ RSpec.describe Getpocket::Screens::ListScreen do
       )
     end
 
+    let(:link_opener) { double }
+
     let(:display) { double }
-    let(:local_repository) { double('LocalRepository', retrieve: [1, 2, 3]) }
+    let(:local_repository) do
+      double('LocalRepository', retrieve: [
+        double(url: 'url1'),
+        double(url: 'url2'),
+        double(url: 'url3'),
+      ])
+    end
 
     it 'renders expected screens' do
       expect(display).to(receive(:call).with([
@@ -86,6 +97,25 @@ RSpec.describe Getpocket::Screens::ListScreen do
       context 'when it is not the first line' do
         it 'returns the new state with updated cursor position' do
           expect(result.cursor_position).to eq(0)
+        end
+      end
+    end
+
+    context 'when pressed enter' do
+      context 'when enter key code' do
+        let(:pressed_key) { '\n' }
+
+        it 'opens an article in the browser' do
+          expect(link_opener).to receive(:open)
+          result
+        end
+      end
+      context 'when return key code' do
+        let(:pressed_key) { '\r' }
+
+        it 'opens an article in the browser' do
+          expect(link_opener).to receive(:open)
+          result
         end
       end
     end

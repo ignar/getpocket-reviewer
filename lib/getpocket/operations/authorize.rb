@@ -6,7 +6,7 @@ module Getpocket
   module Operations
     class Authorize
       include Dry::Transaction::Operation
-      include Import[access_token_class:'getpocket.access_token']
+      include Import[access_token_class: 'getpocket.access_token']
 
       def call(config)
         result = Faraday.post('https://getpocket.com/v3/oauth/authorize',

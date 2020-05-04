@@ -44,7 +44,7 @@ RSpec.describe Getpocket::Article do
   end
 
   describe 'equality' do
-    # TODO move to helper
+    # TODO: move to helper
     let(:other) do
       Getpocket::Article.new(
         item_id: '229279690',
@@ -94,5 +94,7 @@ RSpec.describe Getpocket::Article do
     it 'recognize if entity is the same' do
       expect(subject).to eq(other_by_the_same)
     end
+
+    describe '#url'
   end
 end

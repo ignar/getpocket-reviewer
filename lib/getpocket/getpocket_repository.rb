@@ -22,7 +22,7 @@ module Getpocket
 
     def retrieve(offset: nil, per_page:)
       result = fetcher.new(config).call(offset: offset, per_page: per_page)
-      # TODO mapper function or class
+      # TODO: mapper function or class
       result.map do |entry|
         article.new(
           item_id: entry[:item_id],

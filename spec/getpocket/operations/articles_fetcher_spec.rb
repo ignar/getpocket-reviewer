@@ -2,5 +2,4 @@
 require 'spec_helper'
 
 RSpec.describe(Getpocket::Operations::ArticlesFetcher) do
-  
 end

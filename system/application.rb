@@ -7,4 +7,6 @@ class Application < Dry::System::Container
   end
 
   load_paths!('lib')
+
+  register('link_opener', Launchy)
 end

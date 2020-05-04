@@ -9,12 +9,12 @@ module Getpocket
     end
 
     def retrieve(per_page:, first_element: nil)
-      # TODO missing abstraction
+      # TODO: missing abstraction
       index = first_element.nil? ? 0 : local_storage.all.index(first_element)
       local_storage.all.slice(index..(per_page + index))
     end
 
-    # TODO inconsistent naming (element or entry)
+    # TODO: inconsistent naming (element or entry)
     def previous(element)
       index = local_storage.all.index(element)
 

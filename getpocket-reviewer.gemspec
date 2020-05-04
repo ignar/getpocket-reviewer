@@ -48,4 +48,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency('tty-prompt', '~> 0.21')
   spec.add_dependency('tty-reader', '~> 0.7')
   spec.add_dependency('tty-screen', '~> 0.7')
+  spec.add_dependency('launchy', '~> 2.5')
 end

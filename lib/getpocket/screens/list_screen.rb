@@ -12,6 +12,8 @@ module Getpocket
       include Import['getpocket.ui.menu']
       include Import['getpocket.ui.list']
 
+      include Import['link_opener']
+
       attr_reader :cursor_position, :access_token, :first_element
 
       # TODO: use current article id, not position
@@ -70,6 +72,11 @@ module Getpocket
               first_element: collection.first
             ]
           end
+        end
+
+        if key_symbol == :enter || key_symbol == :return
+          current_article = collection[cursor_position]
+          link_opener.open(current_article.url)
         end
 
         # TODO: test this line
