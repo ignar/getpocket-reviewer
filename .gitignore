@@ -72,3 +72,4 @@ build-iPhoneSimulator/
 # .rubocop-https?--*
 
 coverage
+*.pstore

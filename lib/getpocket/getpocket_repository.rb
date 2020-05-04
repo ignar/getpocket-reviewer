@@ -7,7 +7,7 @@ module Getpocket
 
     attr_reader :config
 
-    def [](config: config)
+    def [](config:)
       @config = config
       self
     end
