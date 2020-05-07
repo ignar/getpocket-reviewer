@@ -2,8 +2,10 @@
 
 module Getpocket
   class ArticlesSynchronizer
-    include Import['getpocket.getpocket_repository']
-    include Import['getpocket.local_repository']
+    include Import[
+      'getpocket.getpocket_repository',
+      'getpocket.local_repository'
+    ]
 
     def call(config)
       collection = []

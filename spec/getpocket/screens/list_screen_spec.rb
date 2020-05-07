@@ -101,22 +101,12 @@ RSpec.describe Getpocket::Screens::ListScreen do
       end
     end
 
-    context 'when pressed enter' do
-      context 'when enter key code' do
-        let(:pressed_key) { '\n' }
+    context 'when pressed "o"' do
+      let(:pressed_key) { 'o' }
 
-        it 'opens an article in the browser' do
-          expect(link_opener).to receive(:open)
-          result
-        end
-      end
-      context 'when return key code' do
-        let(:pressed_key) { '\r' }
-
-        it 'opens an article in the browser' do
-          expect(link_opener).to receive(:open)
-          result
-        end
+      it 'opens an article in the browser' do
+        expect(link_opener).to receive(:open)
+        result
       end
     end
   end
