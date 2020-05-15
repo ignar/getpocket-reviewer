@@ -1,2 +1,6 @@
+--ignore
+.history
+--ignore
+spec
 --dir
 .
