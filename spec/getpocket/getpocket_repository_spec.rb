@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 require 'spec_helper'
 
@@ -70,6 +71,14 @@ RSpec.describe Getpocket::GetpocketRepository do
       it 'uses retriever operation' do
         expect(fetcher_stub).to receive(:call).with(offset: kind_of(Integer), per_page: 1).and_return([])
         result
+      end
+    end
+
+    context 'block yielding' do
+      subject(:result) { described_class.new[config: config] }
+
+      it 'accepts blocks' do
+        expect { |b| result.retrieve(offset: 0, per_page: 1, &b) }.to yield_with_args(Getpocket::Article)
       end
     end
   end

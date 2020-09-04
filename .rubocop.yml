@@ -13,3 +13,5 @@ Style/MethodCallWithArgsParentheses:
     - require_relative
     - raise
     - print
+    - source
+    - ruby

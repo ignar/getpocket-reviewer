@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 Application.boot(:getpocket_api) do |api|

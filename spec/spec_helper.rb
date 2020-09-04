@@ -1,3 +1,4 @@
+# typed: strict
 # frozen_string_literal: true
 
 require 'bundler/setup'
@@ -9,6 +10,7 @@ SimpleCov.start
 require_relative '../system/boot'
 Application.start(:getpocket_api)
 Application.start(:screen)
+Application.start(:persistance)
 
 require 'dry/system/stubs'
 

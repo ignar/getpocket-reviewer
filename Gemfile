@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-ruby '2.7.0'
+
+ruby '2.7.1'
 
 source 'https://rubygems.org'
 
@@ -9,3 +10,9 @@ gemspec
 group :test do
   gem 'simplecov', require: false
 end
+
+group :development do
+  gem 'sorbet'
+end
+
+gem 'sorbet-runtime'

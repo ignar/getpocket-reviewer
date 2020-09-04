@@ -1,3 +1,4 @@
+# typed: ignore
 # frozen_string_literal: true
 
 require 'getpocket/operations/articles_fetcher'
@@ -35,6 +36,12 @@ module Getpocket
         ])
 
         char = reader.read_keypress
+
+        if char == 'o'
+          current_article = collection[cursor_position]
+          link_opener.open(current_article.url)
+        end
+
         key_symbol = reader.console.keys[char]
 
         # TODO: use parameter object
@@ -72,11 +79,6 @@ module Getpocket
               first_element: collection.first
             ]
           end
-        end
-
-        if key_symbol == :enter || key_symbol == :return
-          current_article = collection[cursor_position]
-          link_opener.open(current_article.url)
         end
 
         # TODO: test this line
