@@ -49,6 +49,7 @@ module Getpocket
             # TODO: Refactor & cover with tests
             database[:main] = {} unless database[:main]
             database[:main] = database[:main][_1.item_id] = _1.to_hash
+            yield(_1) if block_given?
           end
         end
       end

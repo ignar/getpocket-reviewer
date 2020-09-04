@@ -20,6 +20,10 @@ module Getpocket
         gateway.add(entity)
       end
 
+      def modify(entity)
+        gateway.modify(entity)
+      end
+
       private
 
       attr_reader :gateway

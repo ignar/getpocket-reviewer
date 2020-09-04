@@ -73,5 +73,13 @@ RSpec.describe Getpocket::GetpocketRepository do
         result
       end
     end
+
+    context 'block yielding' do
+      subject(:result) { described_class.new[config: config] }
+
+      it 'accepts blocks' do
+        expect { |b| result.retrieve(offset: 0, per_page: 1, &b) }.to yield_with_args(Getpocket::Article)
+      end
+    end
   end
 end
