@@ -2,19 +2,11 @@
 #   srb rbi todo
 
 # typed: strong
-module Getpocket::ArticlesSynchronizer; end
-module Getpocket::GetpocketRepository; end
-module Getpocket::LocalRepository; end
-module Getpocket::Screens::AccessTokenScreen; end
-module Getpocket::Screens::AuthenticationScreen; end
-module Getpocket::Screens::ListScreen; end
-module Getpocket::Screens::RequestTokenScreen; end
-module Getpocket::Screens::SynchronizationScreen; end
-module Getpocket::Screens::WelcomeScreen; end
 module Getpocket::Types::Coercible::String; end
 module Getpocket::Types::Strict::Array; end
 module Getpocket::Types::Strict::String; end
 module Getpocket::Types::String; end
-module Getpocket::Ui::MainFrame; end
-module Getpocket::Ui::Menu; end
-module T::CompatibilityPatches::RecorderExtensions; end
+module T::CompatibilityPatches::RSpecCompatibility::MethodDoubleExtensions; end
+module T::CompatibilityPatches::RSpecCompatibility::RecorderExtensions; end
+module T::Private::Methods::MethodHooks; end
+module T::Private::Methods::SingletonMethodHooks; end
